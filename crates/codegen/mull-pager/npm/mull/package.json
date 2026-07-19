@@ -1,0 +1,41 @@
+{
+    "name": "@palmshed/mull",
+    "version": "0.1.220-alpha.4",
+    "description": "Mull \u2014 terminal coding agent by Palmshed",
+    "license": "Apache-2.0",
+    "bin": {
+        "mull": "bin/mull"
+    },
+    "files": [
+        "bin/"
+    ],
+    "os": [
+        "darwin",
+        "linux",
+        "win32"
+    ],
+    "cpu": [
+        "arm64",
+        "x64"
+    ],
+    "scripts": {
+        "postinstall": "node bin/postinstall.js"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "dependencies": {
+        "@iarna/toml": "^3.0.0"
+    },
+    "optionalDependencies": {
+        "@palmshed/mull-darwin-arm64": "0.1.220-alpha.4",
+        "@palmshed/mull-darwin-x64": "0.1.220-alpha.4",
+        "@palmshed/mull-linux-arm64": "0.1.220-alpha.4",
+        "@palmshed/mull-linux-x64": "0.1.220-alpha.4",
+        "@palmshed/mull-win32-arm64": "0.1.220-alpha.4",
+        "@palmshed/mull-win32-x64": "0.1.220-alpha.4"
+    }
+}

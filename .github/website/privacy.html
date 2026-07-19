@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy ~ Mull</title>
+    <meta name="description" content="How Mull handles your data and API keys." />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <nav>
+      <span class="nav-mark">mull</span>
+      <ul class="nav-links" id="nav">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./install.html">Install</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    </nav>
+
+    <div class="hero hero-short">
+      <div class="hero-content">
+        <h1>Privacy</h1>
+        <p>What Mull touches, what leaves your machine, and where your key is stored.</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <section>
+        <h2>Local by default</h2>
+        <p>Mull runs on your computer. Your source code, local configuration, and command history stay on your machine. Nothing is uploaded to Mull or any Mull-operated service.</p>
+      </section>
+
+      <section>
+        <h2>Your API key</h2>
+        <p>Mull authenticates with OpenRouter. The API key you provide is stored locally in <code>~/.mull/auth.json</code> and is sent only to OpenRouter, the provider you choose. Mull never receives or forwards your key.</p>
+        <p class="subtext">Set <code>OPENROUTER_API_KEY</code> in your environment to avoid writing the key to disk.</p>
+      </section>
+
+      <section>
+        <h2>What is sent to the model</h2>
+        <p>To answer a request, Mull sends the context you ask for — selected files, diffs, and conversation — to the OpenRouter endpoint you configure. The default is <code>https://openrouter.ai/api/v1</code>. Review what you include before sending.</p>
+      </section>
+
+      <section>
+        <h2>No telemetry</h2>
+        <p>Mull does not collect analytics, usage metrics, or crash reports by default. There is no account to create and no data shared back with the project.</p>
+      </section>
+
+      <section>
+        <h2>Third parties</h2>
+        <p>The only external service Mull contacts is the model provider you configure (OpenRouter by default). Their handling of data is governed by their own privacy policy.</p>
+      </section>
+
+      <section>
+        <h2>Changes</h2>
+        <p>If these practices change, the updated policy will be posted here. This page describes the software as published on <a href="https://github.com/palmshed/mull">github.com/palmshed/mull</a>.</p>
+      </section>
+      <p class="feedback">Questions about data? <a href="./contact.html">Get in touch</a>.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Palmshed</p>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy</a></li>
+        <li><a href="./terms.html">Terms</a></li>
+        <li><a href="./trademark.html">Trademark</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </footer>
+
+    <script>
+      (function() {
+        var toggle = document.querySelector('.mobile-menu-toggle');
+        var nav = document.getElementById('nav');
+        if (!toggle || !nav) return;
+        function sync() { toggle.setAttribute('aria-expanded', nav.classList.contains('active')); }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          nav.classList.toggle('active');
+          sync();
+        });
+        document.addEventListener('click', function(e) {
+          if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== toggle) {
+            nav.classList.remove('active');
+            sync();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            sync();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

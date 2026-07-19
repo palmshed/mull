@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terms ~ Mull</title>
+    <meta name="description" content="Terms of use for Mull software." />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <nav>
+      <span class="nav-mark">mull</span>
+      <ul class="nav-links" id="nav">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./install.html">Install</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    </nav>
+
+    <div class="hero hero-short">
+      <div class="hero-content">
+        <h1>Terms</h1>
+        <p>The license and conditions that apply when you use Mull.</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <section>
+        <h2>License</h2>
+        <p>Mull is open source and distributed under the license included in the repository. Review <a href="https://github.com/palmshed/mull">the project</a> for the full text and any third-party notices.</p>
+      </section>
+
+      <section>
+        <h2>No warranty</h2>
+        <p>Mull is provided as is. It can read, write, and run commands in your repository, so review its changes before committing. The authors are not liable for any loss, including data loss or failed builds, arising from its use.</p>
+      </section>
+
+      <section>
+        <h2>Your provider relationship</h2>
+        <p>Mull connects to OpenRouter or another provider you configure. Your use of that provider is governed by their terms, and any costs are between you and them. Mull does not intermediate or guarantee those services.</p>
+      </section>
+
+      <section>
+        <h2>Responsibility</h2>
+        <p>You are responsible for the code you generate and ship. Verify output, tests, and security before relying on it in production.</p>
+      </section>
+
+      <section>
+        <h2>Changes</h2>
+        <p>These terms may be updated. The version that applies is the one published alongside the release you use.</p>
+      </section>
+      <p class="feedback">Questions about usage? <a href="./contact.html">Get in touch</a>.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Palmshed</p>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy</a></li>
+        <li><a href="./terms.html">Terms</a></li>
+        <li><a href="./trademark.html">Trademark</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </footer>
+
+    <script>
+      (function() {
+        var toggle = document.querySelector('.mobile-menu-toggle');
+        var nav = document.getElementById('nav');
+        if (!toggle || !nav) return;
+        function sync() { toggle.setAttribute('aria-expanded', nav.classList.contains('active')); }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          nav.classList.toggle('active');
+          sync();
+        });
+        document.addEventListener('click', function(e) {
+          if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== toggle) {
+            nav.classList.remove('active');
+            sync();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            sync();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

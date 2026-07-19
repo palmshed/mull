@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Install ~ Mull</title>
+    <meta name="description" content="Install Mull, authenticate with an OpenRouter API key, and start a coding session." />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <nav>
+      <span class="nav-mark">mull</span>
+      <ul class="nav-links" id="nav">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./install.html" class="active">Install</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    </nav>
+
+    <div class="hero hero-short">
+      <div class="hero-content">
+        <h1>Install</h1>
+        <p>Get Mull running from a binary or from source, then connect an OpenRouter key. No account with Mull required.</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <section>
+        <h2>Install the binary</h2>
+        <p>Download the latest release for your platform from the <a href="https://github.com/palmshed/mull/releases">GitHub releases page</a>, or build from source with Cargo.</p>
+        <pre><code>cargo install --git https://github.com/palmshed/mull</code></pre>
+        <p class="subtext">Mull is written in Rust. A recent stable toolchain and <code>protoc</code> are needed to build from source.</p>
+      </section>
+
+      <section>
+        <h2>Authenticate</h2>
+        <p>Mull uses OpenRouter so you can choose your own model and billing. Run login to open the keys page, then paste a key.</p>
+        <pre><code>mull login
+# 1) OpenRouter API key  (recommended)
+# 2) GitHub device login
+# Paste your key when prompted</code></pre>
+        <p>Or skip the prompt and export the key directly:</p>
+        <pre><code>export OPENROUTER_API_KEY=sk-or-...</code></pre>
+        <p class="subtext">The key is stored locally in <code>~/.mull/auth.json</code>. It is never sent anywhere except OpenRouter.</p>
+      </section>
+
+      <section>
+        <h2>Choose a model</h2>
+        <p>Mull defaults to <code>openrouter/free</code> so you can try it without spending. Set a different model for heavier work.</p>
+        <pre><code>mull --model openrouter/auto   Let Mull choose a model
+mull --model openrouter/free   Use a free tier model</code></pre>
+        <p class="subtext">The default base URL is <code>https://openrouter.ai/api/v1</code>. Override it with <code>CLI_CHAT_PROXY_BASE_URL</code> if needed.</p>
+      </section>
+
+      <section>
+        <h2>Start a session</h2>
+        <p>Run Mull in a repository to begin. It reads the working tree, applies edits, and can run commands for you to review.</p>
+        <pre><code>mull                         Interactive session
+mull "explain how auth works"
+mull "add a test for parse_config"
+mull review                  Summarize uncommitted changes</code></pre>
+      </section>
+
+      <section>
+        <h2>Configuration</h2>
+        <p>Optional settings live in <code>~/.mull/config.toml</code>. Most users need none.</p>
+        <pre><code>[mull]
+model = "openrouter/auto"</code></pre>
+      </section>
+      <p class="feedback">Stuck on a step? <a href="./support.html">Visit support</a> or <a href="https://github.com/palmshed/mull/issues">open an issue</a>.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Palmshed</p>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy</a></li>
+        <li><a href="./terms.html">Terms</a></li>
+        <li><a href="./trademark.html">Trademark</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </footer>
+
+    <script>
+      (function() {
+        var toggle = document.querySelector('.mobile-menu-toggle');
+        var nav = document.getElementById('nav');
+        if (!toggle || !nav) return;
+        function sync() { toggle.setAttribute('aria-expanded', nav.classList.contains('active')); }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          nav.classList.toggle('active');
+          sync();
+        });
+        document.addEventListener('click', function(e) {
+          if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== toggle) {
+            nav.classList.remove('active');
+            sync();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            sync();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

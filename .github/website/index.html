@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mull ~ Home</title>
+    <meta name="description" content="Mull is a terminal coding agent that runs on any OpenRouter model. Bring your own key, keep your code local." />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <nav>
+      <span class="nav-mark">mull</span>
+      <ul class="nav-links" id="nav">
+        <li><a href="./index.html" class="active">Home</a></li>
+        <li><a href="./install.html">Install</a></li>
+        <li><a href="./support.html">Support</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false">Menu</button>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/>
+            <path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/>
+            <path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"/>
+            <path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"/>
+          </svg>
+          <span>Mull</span>
+        </div>
+        <h1>A coding agent that runs in your terminal, on the models you choose.</h1>
+        <p>Mull is a local-first agent for editing, running, and reviewing code. Authenticate once with an OpenRouter API key and use any model the platform supports, including free ones.</p>
+        <div class="hero-actions">
+          <a href="./install.html">Get started</a>
+          <a href="https://github.com/palmshed/mull">View source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <section>
+        <h2>Bring your own key</h2>
+        <p>Mull does not sell models or lock you into a subscription. You connect an OpenRouter account, pick a model, and pay the provider directly. Your source stays on your machine; only the context you send leaves it.</p>
+        <pre><code>mull login
+# Opens https://openrouter.ai/keys
+# Paste your key, and you are done</code></pre>
+        <p class="subtext">Prefer environment variables? Set <code>OPENROUTER_API_KEY</code> and Mull picks it up without the login step.</p>
+      </section>
+
+      <section>
+        <h2>Work the way you already do</h2>
+        <p>Mull runs in the terminal and understands your repository. Ask it to implement a feature, explain a module, or draft a pull request. It can read files, run commands, and apply edits for your review.</p>
+        <pre><code>mull            Start an interactive session
+mull "add tests for the parser"
+mull review     Summarize the current changes</code></pre>
+      </section>
+
+      <section>
+        <h2>Pick the model per task</h2>
+        <p>Different jobs want different models. Mull defaults to <code>openrouter/free</code> so you can try it immediately, and you can switch to a stronger model when a task needs it.</p>
+        <pre><code>mull --model openrouter/free            Quick edits
+mull --model openrouter/auto            Let Mull choose</code></pre>
+      </section>
+
+      <section>
+        <h2>Open and local-first</h2>
+        <p>Mull is open source. The agent logic, the terminal interface, and the configuration live in your checkout. Read the code, build from source, or contribute a change.</p>
+        <p><a href="https://github.com/palmshed/mull">github.com/palmshed/mull</a></p>
+      </section>
+      <p class="feedback">Curious about a feature? <a href="./support.html">See support</a> or <a href="https://github.com/palmshed/mull/issues">open an issue</a>.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Palmshed</p>
+      <ul class="footer-links">
+        <li><a href="./privacy.html">Privacy</a></li>
+        <li><a href="./terms.html">Terms</a></li>
+        <li><a href="./trademark.html">Trademark</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </footer>
+
+    <script>
+      (function() {
+        var toggle = document.querySelector('.mobile-menu-toggle');
+        var nav = document.getElementById('nav');
+        if (!toggle || !nav) return;
+        function sync() { toggle.setAttribute('aria-expanded', nav.classList.contains('active')); }
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          nav.classList.toggle('active');
+          sync();
+        });
+        document.addEventListener('click', function(e) {
+          if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== toggle) {
+            nav.classList.remove('active');
+            sync();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            sync();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

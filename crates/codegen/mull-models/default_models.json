@@ -1,0 +1,18 @@
+{
+  "default": "openrouter/free",
+  "web_search": "openrouter/free",
+  "image_description": "openrouter/free",
+  "session_summary": "openrouter/free",
+  "models": [
+    {
+      "model": "openrouter/free",
+      "name": "OpenRouter Free",
+      "description": "Dynamic free-tier model via OpenRouter (cycles through top-tier options)",
+      "context_window": 200000,
+      "temperature": 0.7,
+      "top_p": 0.95,
+      "api_backend": "chat_completions",
+      "supported_in_api": true
+    }
+  ]
+}

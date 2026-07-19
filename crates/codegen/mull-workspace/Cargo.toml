@@ -1,0 +1,145 @@
+[package]
+license = "Apache-2.0"
+name = "mull-workspace"
+version = "0.1.220-alpha.4"
+edition.workspace = true
+description = "Core host-local workspace library (FS, VCS, execution, discovery) for mull-shell and remote sampler"
+
+[dependencies]
+anyhow = { workspace = true }
+arc-swap = { workspace = true }
+# Diagnostics HTTP server (in-guest readiness/status endpoint); pinned to the
+# workspace version already used by the sibling preview proxy.
+axum = { workspace = true }
+dunce = { workspace = true }
+mull-version = { workspace = true }
+async-stream = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+fs2 = { workspace = true }
+dirs = "6"
+parking_lot = { workspace = true }
+git2 = { version = "0.20", default-features = false, features = ["vendored-libgit2"] }
+ignore = { workspace = true }
+md5 = { workspace = true }
+regex = { workspace = true }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = [
+    "fs",
+    "io-std",
+    "macros",
+    "process",
+    "rt",
+    "rt-multi-thread",
+    "sync",
+] }
+tracing = { workspace = true }
+uuid = { workspace = true, features = ["v4", "v5", "v7"] }
+mull-agent = { path = "../mull-agent" }
+mull-tools = { path = "../mull-tools" }
+mull-tools-api = { path = "../mull-tools-api" }
+mull-workspace-client = { path = "../mull-workspace-client" }
+mull-workspace-types = { path = "../mull-workspace-types" }
+mull-config = { workspace = true }
+# Leaf config value types (RemoteSettings, BoolFlag) for the folder-trust decision.
+mull-config-types = { workspace = true }
+toml = { workspace = true, features = ["preserve_order"] }
+dashmap = { workspace = true }
+agent-client-protocol = { workspace = true }
+mull-acp-lib = { workspace = true }
+mull-codebase-graph = { path = "../mull-codebase-graph" }
+mull-paths = { path = "../mull-paths" }
+base64 = { workspace = true }
+infer = { workspace = true }
+sha2 = { workspace = true, features = ["force-soft"] }
+bstr = "1.12.1"
+hashbrown = "0.16.1"
+nohash-hasher = "0.2.0"
+rustc-hash = "2.1.1"
+nucleo = { workspace = true }
+indexmap = { workspace = true, features = ["serde"] }
+smallvec = { workspace = true }
+chrono = { workspace = true }
+tree-sitter = "0.25.10"
+tree-sitter-bash = "0.25"
+url = { workspace = true }
+mull-env = { workspace = true }
+humantime-serde = { workspace = true }
+prometheus = { workspace = true }
+glob = "0.3"
+mull-sandbox = { path = "../mull-sandbox", default-features = false }
+mull-hooks = { path = "../mull-hooks" }
+mull-hunk-tracker = { path = "../mull-hunk-tracker" }
+# `metrics` enables the SDK's metric-donation client (periodic Prometheus
+# registry gather → OTLP → hub donation pump); see metric_donation_reporter.
+mull-computer-hub-sdk = { workspace = true, features = ["metrics"] }
+mull-computer-hub-mcp-adapter = { path = "../../common/mull-computer-hub-mcp-adapter" }
+mull-mcp = { path = "../mull-mcp" }
+mull-file-utils = { path = "../mull-file-utils" }
+mull-auth = { path = "../mull-auth" }
+mull-telemetry = { workspace = true }
+mull-tty-utils = { workspace = true }
+mull-sqlite-journal = { workspace = true }
+reqwest = { workspace = true }
+mull-tool-protocol = { workspace = true }
+mull-tool-runtime = { workspace = true }
+mull-tool-types = { workspace = true }
+tokio-util = { workspace = true, features = ["rt"] }
+urlencoding = "2"
+mull-fast-worktree = { path = "../mull-fast-worktree", features = ["metadata"] }
+# tonic: Status/Code mapping for deploy errors in workspace_ops.
+tonic = { workspace = true }
+
+mull-fsnotify = { path = "../mull-fsnotify" }
+clap = { workspace = true }
+tracing-subscriber = { workspace = true }
+# "enable" required for the SDK's spans to record at all.
+fastrace = { workspace = true, features = ["enable"] }
+mull-tracing = { workspace = true }
+rustls = { version = "0.23", default-features = false, features = ["ring", "logging", "std", "tls12"] }
+tokio-tungstenite = { workspace = true, features = ["rustls-tls-webpki-roots"] }
+tempfile = { workspace = true }
+zstd = { workspace = true }
+
+# Only referenced by the Unix self-daemonize path (fork/setsid/dup2/chdir).
+[target.'cfg(unix)'.dependencies]
+libc = { workspace = true }
+
+# Only referenced by the Windows self-daemonize path (SetStdHandle).
+[target.'cfg(windows)'.dependencies]
+windows = { workspace = true }
+
+[[bin]]
+name = "mull-workspace-server"
+path = "src/bin/workspace_server.rs"
+
+[[bin]]
+name = "workspace-server-probe"
+path = "src/bin/workspace_server_probe.rs"
+
+[features]
+default = ["sandbox-enforce"]
+compression = []
+test-support = []
+sandbox-enforce = ["mull-sandbox/enforce"]
+default-bazel = [
+    "sandbox-enforce",
+    ]
+
+[dev-dependencies]
+filetime = { workspace = true }
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["test-util"] }
+mull-test-utils = { path = "../../common/mull-test-utils" }
+# Decode tar.gz archives produced by workspace upload helpers in tests.
+flate2 = { workspace = true }
+tar = { workspace = true }
+
+[package.metadata.cargo-shear]
+ignored = ["tokio-tungstenite"]
+
+[lints]
+workspace = true
